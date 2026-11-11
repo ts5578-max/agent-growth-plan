@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent 获客算账 · 整合营销方案</title>
+<style>
+:root{
+  --bg:#f3f5fb; --card:#ffffff; --ink:#14161f; --ink2:#4a5068; --muted:#8a90a6;
+  --line:#dfe3ef; --accent:#2b3a9e; --accent-soft:#e8ebfa; --accent-mid:#c9d0f2;
+  --red:#b4232c; --red-soft:#fbe9ea; --amber:#8a5a12; --amber-soft:#fbf1e1;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 -apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.serif{font-family:"Songti SC","Noto Serif SC","Source Han Serif SC",Georgia,serif}
+nav.top{position:sticky;top:0;z-index:10;background:rgba(243,245,251,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .in{max-width:1080px;margin:0 auto;display:flex;gap:6px;overflow-x:auto;padding:10px 20px;white-space:nowrap}
+nav.top a{color:var(--ink2);text-decoration:none;font-size:13px;padding:4px 10px;border-radius:999px}
+nav.top a:hover{background:var(--accent-soft);color:var(--accent)}
+main{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+header.hero{padding:28px 0 8px}
+header.hero .kicker{color:var(--accent);font-size:13px;letter-spacing:.08em}
+header.hero h1{font-size:34px;line-height:1.35;margin:8px 0 6px}
+header.hero p{color:var(--ink2);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 32px;margin:24px 0}
+section{padding-top:40px}
+.eyebrow{color:var(--accent);font-size:13px;letter-spacing:.06em}
+h2{font-size:26px;line-height:1.4;margin:6px 0 18px}
+h3.cap{font-size:13px;font-weight:600;color:var(--ink);margin:26px 0 10px}
+h3.cap span{color:var(--muted);font-weight:400;margin-left:6px}
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
+.flow .node{flex:1;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.flow .node b{display:block;font-size:14px}
+.flow .node small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:4px}
+.flow .node .n{color:var(--accent);font-size:12px;font-weight:600}
+.flow .node.gate{border:1.5px dashed var(--accent-mid);background:#fbfcff}
+.flow .node.gate b{color:var(--accent)}
+.flow .node.hi{background:var(--accent-soft);border-color:var(--accent)}
+.flow .arr{display:flex;align-items:center;padding:0 8px;color:var(--accent);font-weight:700}
+@media(max-width:760px){.flow{flex-direction:column}.flow .arr{justify-content:center;padding:4px 0;transform:rotate(90deg)}}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;border-top:1px solid var(--line);margin-top:22px;padding-top:18px}
+.kpis div small{display:block;color:var(--muted);font-size:12px}
+.kpis div b{font-size:20px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+@media(max-width:760px){.two,.kpis{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
+ol.clean{padding-left:20px;margin:6px 0}
+ol.clean li{margin:4px 0}
+.label{color:var(--muted);font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.chips .k{color:var(--muted);font-size:12px;width:64px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 12px;font-size:13px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+th{background:#f7f8fc;text-align:left;color:var(--muted);font-weight:500;font-size:12px;padding:10px 14px}
+td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:middle}
+td:first-child{font-weight:600}
+.bar{display:flex;align-items:center;gap:8px}
+.bar i{display:block;height:9px;border-radius:5px;background:var(--accent)}
+.bar em{font-style:normal;font-size:12px;color:var(--ink2)}
+.diagram{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:70px 120px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px}
+.diagram .box{border:1.5px solid var(--ink2);border-radius:10px;padding:18px;text-align:center}
+.diagram .box b{font-size:17px}
+.diagram .box small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+.diagram .center{grid-column:1/3;justify-self:center;width:46%;background:var(--accent-soft);border-color:var(--accent)}
+.diagram .lk{font-size:12px;color:var(--ink2);text-align:center}
+.links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.links div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px}
+.links div b{color:var(--accent);display:block;font-size:12px}
+.pyramid{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pyramid div{display:flex;justify-content:space-between;align-items:center;background:var(--accent-soft);border:1px solid var(--accent-mid);border-radius:8px;padding:10px 16px;font-size:14px}
+.pyramid div span{color:var(--ink2);font-size:13px;margin-left:10px;flex:1}
+.pyramid div em{font-style:normal;color:var(--accent);font-weight:700}
+.tree{display:flex;flex-direction:column;align-items:center}
+.tree .root{width:48%;background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:14px 18px}
+.tree .row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;width:100%;margin-top:22px;position:relative}
+.tree .row:before{content:"";position:absolute;top:-12px;left:12.5%;right:12.5%;border-top:2px solid var(--accent)}
+.tree .row>div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;position:relative}
+.tree .row>div:before{content:"";position:absolute;top:-12px;left:50%;height:12px;border-left:2px solid var(--accent)}
+.tree .sub{margin-top:18px;width:54%;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+.tree .sub.dash{border:1.5px dashed var(--accent-mid)}
+.tree b{font-size:14px}
+.tree small{display:block;color:var(--muted);font-size:12px}
+.tree code{display:block;color:var(--accent);font-size:12px;font-family:ui-monospace,Menlo,monospace;margin-top:4px}
+.matrix{display:flex;align-items:center;gap:10px}
+.matrix .m{flex:1;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.matrix .m small{color:var(--muted);font-size:12px;display:block}
+.matrix .eq{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:10px 16px;font-weight:700;color:var(--accent)}
+.rules{display:grid;grid-template-columns:1.4fr auto 1fr;gap:8px 10px;align-items:center}
+.rules .c{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px}
+.rules .a{color:var(--accent)}
+.rules .r{border-radius:8px;padding:9px 14px;font-weight:600;font-size:14px}
+.r.stop{background:var(--red-soft);border:1px solid #e3a3a7;color:var(--red)}
+.r.warn{background:var(--amber-soft);border:1px solid #e5c58f}
+.r.go{background:var(--accent-soft);border:1px solid var(--accent)}
+.north{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:12px 18px;margin-bottom:12px;font-size:17px}
+.north small{color:var(--accent);font-size:12px;margin-right:10px}
+.gates{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.gates>div{border:1.5px dashed var(--accent-mid);border-radius:10px;padding:14px 16px;background:#fff}
+.gates h4{margin:0 0 6px;color:var(--accent);font-size:13px}
+.gates ul{margin:0;padding-left:18px}
+.gates p{color:var(--muted);font-size:12.5px;margin:8px 0 0}
+@media(max-width:760px){.gates,.links,.tree .row{grid-template-columns:1fr 1fr}.tree .root,.tree .sub{width:100%}.diagram{grid-template-columns:1fr;gap:20px}.diagram .center{grid-column:1;width:100%}}
+.note{background:#fffbe9;border:1px solid #efe1a6;border-radius:10px;padding:10px 14px;font-size:13px;color:#6b5a14;margin:14px 0}
+.fold{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 16px;margin-top:14px;font-size:14px}
+.fold b:before{content:"+ ";color:var(--accent)}
+.fold span{color:var(--muted);margin-left:8px;font-size:13px}
+figure.chart{padding:14px;margin:0 -14px !important;background:var(--bg)}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:40px}
+</style>
+</head>
+<body>
+<nav class="top"><div class="in">
+<a href="#summary">执行摘要</a><a href="#s1">1 整合营销框架</a><a href="#s4">4 海外付费投放</a><a href="#s5">5 国内付费投放</a><a href="#s6">6 达人采买与自然流</a><a href="#s7">7 品牌账号矩阵</a><a href="#s8">8 内容体系</a><a href="#s9">9 度量体系</a><a href="#s10">10 预算与团队</a><a href="#s11">11 路线图与决策门</a><a href="#s12">12 竞争格局</a>
+</div></nav>
+<main>
+
+<header class="hero">
+  <div class="kicker">Agent 获客算账 ｜ 整合营销框架 ｜ 获客成本与回本 ｜ 预算分配与转化 ｜ 达人与团队</div>
+  <h1 class="serif">Agent 产品整合营销方案（以 Cue 为例）</h1>
+  
+</header>
+
+<!-- 执行摘要 -->
+<div class="card" id="summary">
+  <div class="eyebrow">执行摘要</div>
+  <h2 class="serif">海外先打美国：付费投放、达人采买、品牌账号矩阵三线并行，按首次交付买量；6 周验证单位经济，达标再扩量；国内第 13 周决策。</h2>
+  <figure class="chart" id="c0" style="margin:0">
+  <div class="flow">
+    <div class="node"><b>W1–2 搭建</b><small>MMP · 深链 · 24 条素材 · 20 位达人</small></div><div class="arr">→</div>
+    <div class="node"><b>W3–6 美国测试</b><small>约 $1.7 万/周</small></div><div class="arr">→</div>
+    <div class="node gate"><b>决策门 1</b><small>CPFD ≤ $15 · D7 ≥ 30%</small></div><div class="arr">→</div>
+    <div class="node"><b>W7–10 扩量</b><small>$4–5 万/周 · 英加澳</small></div><div class="arr">→</div>
+    <div class="node gate"><b>决策门 2 / 0</b><small>增量与定价 · 国内是否启动</small></div>
+  </div>
+  </figure>
+  <div class="two" style="margin-top:22px">
+    <div><div class="label">核心判断</div>
+      <ol class="clean"><li>按首次交付买量，不按安装买。</li><li>在 Meta 与免费的 Muse 竞价 → 主打电话号码能力。</li><li>达人按首次交付结算，胜出内容转入付费。</li><li>9.99 美元号码回收期约 37 个月 → 免费期内测定价。</li></ol></div>
+    <div><div class="label">需要的决策</div>
+      <ol class="clean"><li>首月海外预算约 9–10 万美元</li><li>前两周交付：MMP、8 个事件、带码深链、场景模板</li><li>约 9 人的整合营销团队</li><li>启动国内合规评估，第 13 周决策</li><li>免费期内的定价 A/B 测试</li></ol></div>
+  </div>
+  <div class="kpis">
+    <div><small>首发市场</small><b>美国</b></div>
+    <div><small>优化事件</small><b>首次交付</b></div>
+    <div><small>首月海外预算</small><b>9–10 万美元</b></div>
+    <div><small>国内</small><b>第 13 周决策</b></div>
+  </div>
+</div>
+
+<!-- 1 -->
+<section id="s1">
+  <div class="eyebrow">1 · 整合营销框架</div>
+  <h2 class="serif">四条线共用一套素材库和度量，内容在线之间流动</h2>
+  <figure class="chart" id="c1" style="margin:0">
+  <h3 class="cap">图表 1<span>Cue 打法七步（美国；人群为推断，首月按各人群 CPFD 调整）</span></h3>
+  <div class="flow">
+    <div class="node"><span class="n">1 场景</span><b>代接电话<br>多 Agent</b></div><div class="arr">→</div>
+    <div class="node"><span class="n">2 人群</span><b>家长<br>自由职业<br>小商家</b></div><div class="arr">→</div>
+    <div class="node"><span class="n">3 渠道</span><b>Meta<br>Google<br>TikTok<br>Apple</b></div><div class="arr">→</div>
+    <div class="node gate"><span class="n">4 预算立场</span><b>买验证，<br>不买规模</b></div><div class="arr">→</div>
+    <div class="node"><span class="n">5 自然流</span><b>账号<br>分享卡<br>达人</b></div><div class="arr">→</div>
+    <div class="node hi"><span class="n">6 付费投放</span><b>兑换码 →<br>首次交付</b></div><div class="arr">→</div>
+    <div class="node"><span class="n">7 考核</span><b>CPFD<br>D7<br>付费率</b></div>
+  </div>
+  </figure>
+  <figure class="chart" id="c2" style="margin:0">
+  <h3 class="cap">图表 2<span>四条线的协同（实线：内容流向；虚线：素材入库与数据回传）</span></h3>
+  <div class="diagram">
+    <div class="box"><b>海外付费投放</b><small>Meta · Google · TikTok · Apple Ads</small></div>
+    <div class="box"><b>国内付费投放</b><small>巨量引擎 · 腾讯广告 · 小红书 · 百度</small></div>
+    <div class="box center"><b>统一素材库 · 统一度量</b><small>渠道码 · MMP · 增量实验</small></div>
+    <div class="box"><b>达人采买与自然流</b><small>YouTube · TikTok · 小红书 · 抖音</small></div>
+    <div class="box" style="border-style:dashed"><b>品牌账号矩阵</b><small>（截图被遮挡，按“四条线”推断）</small></div>
+  </div>
+  <div class="links">
+    <div><b>海外 ⇄ 国内</b>胜出素材跨市场复用（画面与口播需本地化）</div>
+    <div><b>达人 → 海外付费</b>胜出内容授权投放（Spark Ads · 合作伙伴广告）</div>
+    <div><b>达人 → 账号</b>达人内容转发沉淀</div>
+  </div>
+  <div class="chips"><span class="k">另两条协同</span><span class="chip">钩子测试：账号内容 48 小时完播前 20% → 付费素材</span><span class="chip">搜索承接：品牌搜索…（截图被遮挡）</span></div>
+  </figure>
+  <h3 class="cap">图表 3<span>营销全链路：每段由谁负责、看什么数（高亮两段由付费投放直接负责）</span></h3>
+  <div class="note">截图未覆盖图表 3 的内容，以及第 2–3 节、第 4 节主体（图表 4–8）。</div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <div class="eyebrow">4 · 海外付费投放（截图仅含末尾部分）</div>
+  <ul>
+    <li><b>Apple Ads：</b>品牌词精确匹配防守；品类词 ai assistant、ai agent；竞品词 muse、grok、chatgpt（政策无专门条款，只要求不侵犯知识产权）；发现系列挖新词。</li>
+    <li><b>Reddit：</b>App promotion 目标；近 28 天事件过 120 个后才能用 Target cost。</li>
+    <li><b>不投 LinkedIn：</b>Cue 主打个人用户……（截图被字幕遮挡）</li>
+  </ul>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <div class="eyebrow">5 · 国内付费投放</div>
+  <h2 class="serif">三项前提满足后，按同一方法启动</h2>
+  <figure class="chart" id="c9" style="margin:0">
+  <h3 class="cap">图表 9<span>国内启动链路</span></h3>
+  <div class="flow">
+    <div class="node"><b>合规</b><small>备案或登记 · App 备案 · AI 标识</small></div><div class="arr">→</div>
+    <div class="node"><b>能力</b><small>电话 · 支付 · 聊天渠道</small></div><div class="arr">→</div>
+    <div class="node"><b>度量</b><small>深层事件回传</small></div><div class="arr">→</div>
+    <div class="node gate"><b>决策门 0</b><small>第 13 周</small></div><div class="arr">→</div>
+    <div class="node hi"><b>启动投放</b><small>首月示例 50 万元</small></div>
+  </div>
+  </figure>
+  <figure class="chart" id="c10" style="margin:0">
+  <h3 class="cap">图表 10<span>国内优化目标三步：深层事件够量才往下切（20 为经验值）</span></h3>
+  <div class="flow">
+    <div class="node"><b>只投激活 / 注册</b><small>先把激活和首次交付回传稳</small></div><div class="arr">回传稳 →</div>
+    <div class="node"><b>叠加深层目标</b><small>激活 + 首次交付</small></div><div class="arr">≥ 20/日 →</div>
+    <div class="node hi"><b>首次交付为唯一目标</b><small>付费量够再试付费 / ROI</small></div>
+  </div>
+  </figure>
+  <figure class="chart" id="c11" style="margin:0">
+  <h3 class="cap">图表 11<span>国内渠道与预算占比（占比为示例）</span></h3>
+  <table>
+    <thead><tr><th>渠道</th><th>角色</th><th>资源位</th><th>优化目标</th><th style="width:22%">占比</th></tr></thead>
+    <tbody>
+      <tr><td>巨量引擎</td><td>主力获客</td><td>抖音、今日头条</td><td>激活 → 关键行为</td><td><div class="bar"><i style="width:40%"></i><em>40%</em></div></td></tr>
+      <tr><td>腾讯广告</td><td>微信生态 · 安卓</td><td>视频号、朋友圈、应用宝</td><td>激活 → 关键行为</td><td><div class="bar"><i style="width:25%"></i><em>25%</em></div></td></tr>
+      <tr><td>小红书</td><td>口碑与搜索</td><td>聚光信息流与搜索</td><td>搜索点击、激活</td><td><div class="bar"><i style="width:15%"></i><em>15%</em></div></td></tr>
+      <tr><td>安卓商店</td><td>下载承接</td><td>华为、小米、OPPO、vivo、荣耀</td><td>下载、激活</td><td><div class="bar"><i style="width:10%"></i><em>10%</em></div></td></tr>
+      <tr><td>百度</td><td>搜索承接</td><td>品牌词、品类词</td><td>激活</td><td><div class="bar"><i style="width:5%"></i><em>5%</em></div></td></tr>
+      <tr><td>B 站</td><td>深度测评</td><td>花火视频 + 必火推广</td><td>播放、激活</td><td><div class="bar"><i style="width:5%"></i><em>5%</em></div></td></tr>
+    </tbody>
+  </table>
+  </figure>
+  <div class="fold"><b>三项前提明细与执行要点</b><span>法规、能力、回传（原文折叠）</span></div>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <div class="eyebrow">6 · 达人采买与自然流</div>
+  <h2 class="serif">金字塔分层采买，按首次交付结算，胜出内容转入付费</h2>
+  <figure class="chart" id="c12" style="margin:0">
+  <h3 class="cap">图表 12<span>达人金字塔（海外首批；占比为建议值）</span></h3>
+  <div class="pyramid">
+    <div style="width:52%"><b>头部</b><span>100 万+ · 1–2 人 · 版本节点声量</span><em>20%</em></div>
+    <div style="width:68%"><b>腰部</b><span>10–100 万 · 6–8 人 · 转化主力</span><em>45%</em></div>
+    <div style="width:84%"><b>尾部</b><span>1–10 万 · 10–12 人 · 长尾场景与搜索</span><em>20%</em></div>
+    <div style="width:100%"><b>UGC</b><span>每周 5–8 条 · 付费素材，买断</span><em>15%</em></div>
+  </div>
+  </figure>
+  <figure class="chart" id="c13" style="margin:0">
+  <h3 class="cap">图表 13<span>达人合作链路</span></h3>
+  <div class="flow">
+    <div class="node"><b>选人</b><small>受众国一致 · 互动率高</small></div><div class="arr">→</div>
+    <div class="node"><b>简报</b><small>必讲 · 禁讲 · 必带</small></div><div class="arr">→</div>
+    <div class="node"><b>自然发布</b><small>专属码 + 合作披露</small></div><div class="arr">→</div>
+    <div class="node gate"><b>7 天筛选</b><small>互动率 &gt; 自身中位数</small></div><div class="arr">→</div>
+    <div class="node hi"><b>授权投放</b><small>Spark · 合作伙伴广告 · 星图</small></div><div class="arr">→</div>
+    <div class="node"><b>按码结算</b><small>首次交付定续约</small></div>
+  </div>
+  <div class="chips"><span class="k">海外平台</span><span class="chip">YouTube Creator Partnerships</span><span class="chip">TikTok One</span><span class="chip">Meta Creator Marketing Hub</span><span class="chip">X / Reddit 直签</span></div>
+  <div class="chips"><span class="k">国内平台</span><span class="chip">巨量星图</span><span class="chip">小红书蒲公英</span><span class="chip">B 站花火</span><span class="chip">腾讯广告互选</span><span class="chip">快手磁力聚星</span></div>
+  </figure>
+  <figure class="chart" id="c14" style="margin:0">
+  <h3 class="cap">图表 14<span>自然流链路：产品内分享是成本最低的来源</span></h3>
+  <div class="flow">
+    <div class="node"><b>完成任务</b><small>交付物生成</small></div><div class="arr">→</div>
+    <div class="node"><b>分享卡</b><small>附邀请码</small></div><div class="arr">→</div>
+    <div class="node"><b>社交平台</b><small>用户自发分享</small></div><div class="arr">→</div>
+    <div class="node hi"><b>新用户兑换</b><small>裂变系数</small></div>
+  </div>
+  <div class="chips"><span class="k">节点联动</span><span class="chip">版本更新日：头部达人 + 官方号 + 创始人号同日发布</span><span class="chip">平日：腰尾部达人 + 场景号持续供给</span></div>
+  </figure>
+  <div class="fold"><b>选人、简报、权益与合规</b><span>执行细则（原文折叠）</span></div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <div class="eyebrow">7 · 品牌账号矩阵</div>
+  <h2 class="serif">主号定调，四类子号分工，社区与私域负责沉淀</h2>
+  <figure class="chart" id="c15" style="margin:0">
+  <h3 class="cap">图表 15<span>账号矩阵结构（「海外 / 国内」平台；国内部分在决策门 0 后启动）</span></h3>
+  <div class="tree">
+    <div class="root"><b>官方主号</b><small>品牌口径 · 版本发布</small><code>X · IG · TikTok · YouTube / 抖音 · 小红书 · 视频号 · 微博 · B 站</code></div>
+    <div class="row">
+      <div><b>创始人号</b><small>信任 · 行业判断</small><code>X / 微博 · 即刻</code></div>
+      <div><b>场景号</b><small>按人群获客 · 看码兑换</small><code>TikTok · IG / 抖音 · 小红书</code></div>
+      <div><b>实录号 · 员工号</b><small>演示 Agent 日志 · 幕后</small><code>X · TikTok / 小红书 · 即刻</code></div>
+      <div><b>支持号</b><small>客服 · 故障通告</small><code>X</code></div>
+    </div>
+    <div class="sub"><b>社区 · 私域</b><small>沉淀与留存 · 邀请码发放</small><code>Discord · Reddit / 公众号 · 企业微信</code></div>
+  </div>
+  <div class="chips"><span class="k">治理</span><span class="chip">能力表述清单</span><span class="chip">命名「Cue｜场景」</span><span class="chip">AI 内容标注</span><span class="chip">2 小时危机响应</span><span class="chip">双重验证</span><span class="chip">月度复盘</span></div>
+  </figure>
+  <div class="fold"><b>各账号的频率与指标</b><span>运营明细（原文折叠）</span></div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <div class="eyebrow">8 · 内容体系</div>
+  <h2 class="serif">一套素材库供四条线使用，开场先给结果</h2>
+  <figure class="chart" id="c16" style="margin:0">
+  <h3 class="cap">图表 16<span>素材流水线</span></h3>
+  <div class="flow">
+    <div class="node"><b>5 类来源</b><small>达人 · UGC · 账号 · 录屏 · AI 生成</small></div><div class="arr">→</div>
+    <div class="node"><b>测试组</b><small>每周 10–15 条</small></div><div class="arr">→</div>
+    <div class="node gate"><b>胜出判定</b><small>花费 &gt; 5×CPFD 且达标</small></div><div class="arr">→</div>
+    <div class="node hi"><b>主系列放大</b><small>付费投放</small></div><div class="arr">→</div>
+    <div class="node"><b>跨渠道复用</b><small>跨市场需本地化</small></div>
+  </div>
+  </figure>
+  <figure class="chart" id="c17" style="margin:0">
+  <h3 class="cap">图表 17<span>首批素材矩阵</span></h3>
+  <div class="matrix">
+    <div class="m"><small>2 个场景</small>代接电话 · 多 Agent 协作</div><b>×</b>
+    <div class="m"><small>4 种钩子</small>FOMO · 演示 · 前后对比 · 消除顾虑</div><b>×</b>
+    <div class="m"><small>3 种格式</small>9:16 口播 · 9:16 录屏 · 1:1 图文</div><b>=</b>
+    <div class="eq">24 条</div>
+  </div>
+  </figure>
+  <figure class="chart" id="c18" style="margin:0">
+  <h3 class="cap">图表 18<span>迭代规则（起步经验值，两周后按账户数据重设）</span></h3>
+  <div class="rules">
+    <div class="c">花费 ≥ 2×CPFD，无首次交付</div><div class="a">→</div><div class="r stop">停投</div>
+    <div class="c">3 秒播放率 &lt; 账户中位数一半</div><div class="a">→</div><div class="r warn">换开场</div>
+    <div class="c">近 7 天 CPFD 上升 &gt; 30%</div><div class="a">→</div><div class="r warn">换演员和开场</div>
+    <div class="c">花费 &gt; 5×CPFD，CPFD ≤ 目标</div><div class="a">→</div><div class="r go">扩量到其他渠道与格式</div>
+  </div>
+  </figure>
+  <div class="fold"><b>20 秒口播脚本与素材命名</b><span>真人 UGC 模板（原文折叠）</span></div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <div class="eyebrow">9 · 度量体系</div>
+  <h2 class="serif">一个北极星、一条 KPI 链，用增量实验校准各线贡献</h2>
+  <figure class="chart" id="c19" style="margin:0">
+  <h3 class="cap">图表 19<span>北极星与 KPI 链路（阈值为示例，前 4 周用自己的数据重标）</span></h3>
+  <div class="north serif"><small>北极星</small><b>每周主动完成任务的活跃 Agent 数</b></div>
+  <div class="flow">
+    <div class="node"><b>上手</b><small>兑换后 24 小时内建 Agent</small></div><div class="arr">→</div>
+    <div class="node hi"><b>首次交付</b><small>48 小时内打开结果</small></div><div class="arr">→</div>
+    <div class="node"><b>习惯</b><small>7 天内 ≥ 3 天有交付</small></div><div class="arr">→</div>
+    <div class="node gate"><b>付费</b><small>D7 → 付费 ≥ 12%</small></div><div class="arr">→</div>
+    <div class="node gate"><b>M3 留存</b><small>曲线变平</small></div><div class="arr">→</div>
+    <div class="node gate"><b>回收期</b><small>≤ 12 个月</small></div>
+  </div>
+  </figure>
+  <figure class="chart" id="c20" style="margin:0">
+  <h3 class="cap">图表 20<span>优化目标阶梯：不传注册，选中间那一步（另有 channel_connected 诊断、invite_redeemed 裂变）</span></h3>
+  <div class="chips"><span class="k">选目标三条件</span><span class="chip">当天能发生</span><span class="chip">…（截图被遮挡）</span></div>
+  <div class="flow">
+    <div class="node"><b><code>install</code></b><small>太浅</small></div><div class="arr">→</div>
+    <div class="node"><b><code>code_redeemed</code></b><small>冷启动过渡</small></div><div class="arr">→</div>
+    <div class="node"><b><code>agent_created</code></b><small>诊断</small></div><div class="arr">→</div>
+    <div class="node hi"><b><code>first_delivered</code></b><small>主优化目标</small></div>
+  </div>
+  </figure>
+  <figure class="chart" id="c21" style="margin:0">
+  <h3 class="cap">图表 21<span>度量链路</span></h3>
+  <div class="flow">
+    <div class="node"><b>渠道码 · 专属码</b><small>每个渠道、达人、账号一组</small></div><div class="arr">→</div>
+    <div class="node"><b>MMP 汇总</b><small>含 SKAN / AdAttributionKit</small></div><div class="arr">→</div>
+    <div class="node"><b>日 · 周 · 月报</b><small>CPFD · 留存 · 回收期</small></div><div class="arr">→</div>
+    <div class="node gate"><b>地域留白</b><small>第 7 周起 20% DMA 停投 4 周</small></div>
+  </div>
+  </figure>
+  <div class="fold"><b>事件映射、SKAN 方案与报表</b><span>给数据团队（原文折叠）</span></div>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <div class="eyebrow">10 · 预算与团队</div>
+  <h2 class="serif">首月海外约 9–10 万美元，团队约 9 人</h2>
+  <figure class="chart" id="c22" style="margin:0">
+  <h3 class="cap">图表 22<span>首月预算构成（占比按区间中值；不含工具与人力）</span></h3>
+  <table>
+    <thead><tr><th>科目</th><th style="text-align:right">金额</th><th style="width:45%">占比</th></tr></thead>
+    <tbody>
+      <tr><td>海外付费投放</td><td style="text-align:right">约 $73,000</td><td><div class="bar"><i style="width:78%"></i><em>78%</em></div></td></tr>
+      <tr><td>达人采买</td><td style="text-align:right">$10,000–15,000</td><td><div class="bar"><i style="width:13%"></i><em>13%</em></div></td></tr>
+      <tr><td>内容制作</td><td style="text-align:right">$7,000–10,000</td><td><div class="bar"><i style="width:9%"></i><em>9%</em></div></td></tr>
+      <tr><td>国内</td><td style="text-align:right">门 0 后报批</td><td><em style="color:var(--muted);font-size:12px;font-style:normal">示例首月 50 万元</em></td></tr>
+    </tbody>
+  </table>
+  </figure>
+  <figure class="chart" id="c23" style="margin:0">
+  <h3 class="cap">图表 23<span>团队结构（建议）</span></h3>
+  <div class="tree">
+    <div class="root"><b>增长负责人 · 1</b><small>目标、预算、决策门</small></div>
+    <div class="row">
+      <div><b>海外投放 · 2</b><small>账户、出价、测试</small></div>
+      <div><b>达人合作 · 2</b><small>选人、简报、结算</small></div>
+      <div><b>社媒与内容 · 3</b><small>账号、素材、社区</small></div>
+      <div><b>数据与归因 · 1</b><small>MMP、报表、实验</small></div>
+    </div>
+    <div class="sub dash"><b style="color:var(--accent)">国内团队</b><small>决策门 0 后组建：投放、达人、社媒</small></div>
+  </div>
+  </figure>
+</section>
+
+<!-- 11 -->
+<section id="s11">
+  <div class="eyebrow">11 · 路线图与决策门</div>
+  <h2 class="serif">五条泳道并行，三道门决定是否加钱</h2>
+  <figure class="chart" id="c24" style="margin:0">
+  <h3 class="cap">图表 24<span>90 天泳道图</span></h3>
+  <table>
+    <thead><tr><th>泳道</th><th>W1–2</th><th>W3–6</th><th>W7–10</th><th>W11–13</th></tr></thead>
+    <tbody>
+      <tr><td>海外付费</td><td>MMP · 深链 · 商店页</td><td>$1.7 万/周</td><td>$4–5 万/周 · 英加澳</td><td>增量读数 · 定价 A/B</td></tr>
+      <tr><td>达人与自然流</td><td>签 20 位 · 发码</td><td>胜出即授权</td><td>头部配合节点</td><td>按码续约</td></tr>
+      <tr><td>账号矩阵</td><td>开号 · 治理规范</td><td>固定更新 · 测钩子</td><td>AMA · 创始人节点</td><td>月度复盘</td></tr>
+      <tr><td>国内准备</td><td>合规评估</td><td>商标与账号名注册</td><td>能力本地化验收</td><td>决策门 0</td></tr>
+      <tr><td>度量</td><td>事件 · SKAN</td><td>日报 · 周报</td><td>地域留白</td><td>增量读数</td></tr>
+    </tbody>
+  </table>
+  <div class="gates">
+    <div><h4>决策门 1 · 第 6 周</h4><ul><li>CPFD ≤ 15 美元</li><li>D7 ≥ 30%</li><li>安装 → 兑换 ≥ 80%</li></ul><p>全过才扩量；不过就改素材和承接，不加钱。</p></div>
+    <div><h4>决策门 2 · 第 13 周</h4><ul><li>增量 CPFD ≤ 归因 CPFD × 1.5</li><li>有定价方案回收期 ≤ 12 个月</li></ul><p>过了再谈下季度预算。</p></div>
+    <div><h4>决策门 0 · 第 13 周</h4><ul><li>备案完成</li><li>电话、支付、聊天渠道可用</li><li>国内回传打通</li></ul><p>过了再报批国内预算与团队。</p></div>
+  </div>
+  </figure>
+  <div class="fold"><b>需要产品与工程配合的事项</b><span>7 项（原文折叠）</span></div>
+</section>
+
+<!-- 12 -->
+<section id="s12">
+  <div class="eyebrow">12 · 竞争格局</div>
+  <h2 class="serif">在 Meta 上与免费的 Muse 同场竞价</h2>
+  <figure class="chart" id="c25" style="margin:0">
+  <h3 class="cap">图表 25<span>对手与对本方案的影响</span></h3>
+  <table>
+    <thead><tr><th>对手</th><th>已知分发</th><th>影响</th></tr></thead>
+    <tbody>
+      <tr><td>Meta Muse</td><td>免费，WhatsApp 内使用；累计下载超 340 万（Sensor Tower，截至 9 月 24 日，36 氪转引）</td><td>主打电话号码能力（截图遮挡，据核心判断补全）</td></tr>
+      <tr><td>xAI Grok Bot</td><td>先开给付费用户；朋友付费后邀请人额度重置（限美国）；投放指南以 LinkedIn、搜索为主</td><td>不照搬渠道；借鉴「需求捕获 / 需求创造 / 测试预留」三分预算</td></tr>
+    </tbody>
+  </table>
+  </figure>
+  <div class="note">截图到此为止，第 12 节之后的内容未覆盖。</div>
+</section>
+
+<footer>术语：CPFD = Cost Per First Delivery（单次首次交付成本）· D7 = 第 7 日留存 · MMP = 移动归因平台 · SKAN = SKAdNetwork</footer>
+</main>
+</body>
+</html>
